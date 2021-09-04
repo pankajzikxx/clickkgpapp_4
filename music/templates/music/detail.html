@@ -1,0 +1,22 @@
+<img src="{{album.album_logo}}">
+
+<h1>{{ album.album_title }}</h1>
+<h3>{{ album.artist }}</h3>
+
+{% if error_message %}
+<p><strong>{{ error_message }}</strong></p>
+{% endif %}
+
+<form action="{% url'music.favorite' album.id %}" method=""post">
+    {% csrf_token %}
+    {% for song in album.song_set.all %}
+<input type"radio" id="song{{ forloop.counter }}" name="song" value="{{ song.id }}">
+<label for="song{{ forloop.counter }}">
+    {{ song.song_title }}
+    {% if song.is_favorite %}
+  <img src=""https://www.google.com/imgres?imgurl=https%3A%2F%2Fwww.cindysrecipe.com%2Fwp-content%2Fuploads%2F2018%2F03%2Ffavourites-267x200.png&imgrefurl=https%3A%2F%2Fwww.cindysrecipe.com%2Ffavourites-2%2F&tbnid=5tywhIc0cnGiHM&vet=12ahUKEwiBuNTfmOXyAhVrsksFHYmqB0wQMygXegUIARD6AQ..i&docid=V4NDnlIqe8o8_M&w=267&h=200&q=favourite&ved=2ahUKEwiBuNTfmOXyAhVrsksFHYmqB0wQMygXegUIARD6AQ" />
+{% endif %}
+</label><br>
+{% endfor %}
+<input type="'submit" value="favorite">
+</form>
